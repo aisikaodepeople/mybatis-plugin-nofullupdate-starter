@@ -1,4 +1,4 @@
-# MyBatis 租户插件
+# MyBatis 防全表更新插件
 
 ```
 
