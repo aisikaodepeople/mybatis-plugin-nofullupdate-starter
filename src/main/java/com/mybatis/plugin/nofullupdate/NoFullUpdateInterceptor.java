@@ -154,7 +154,7 @@ public class NoFullUpdateInterceptor implements Interceptor {
             OrExpression orExpression = (OrExpression) where;
             return isFullUpdate(orExpression.getLeftExpression()) || isFullUpdate(orExpression.getRightExpression());
         } else if (where instanceof AndExpression) {
-            // example: 1 = 1 or 1 !=2
+            // example: 1 = 1 and 1 !=2
             AndExpression andExpression = (AndExpression) where;
             return isFullUpdate(andExpression.getLeftExpression()) && isFullUpdate(andExpression.getRightExpression());
         } else if (where instanceof Parenthesis) {
