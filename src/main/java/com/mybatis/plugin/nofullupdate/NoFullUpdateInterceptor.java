@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-
 @Intercepts(
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})
 )
@@ -38,6 +37,16 @@ public class NoFullUpdateInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         MetaObject metaObject = SystemMetaObject.forObject(invocation.getTarget());
+
+        while (metaObject.hasGetter("h")) {
+            Object object = metaObject.getValue("h");
+            metaObject = SystemMetaObject.forObject(object);
+        }
+        while (metaObject.hasGetter("target")) {
+            Object object = metaObject.getValue("target");
+            metaObject = SystemMetaObject.forObject(object);
+        }
+
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
         BoundSql boundSql = mappedStatement.getBoundSql(metaObject.getValue("delegate.parameterHandler.parameterObject"));
 
