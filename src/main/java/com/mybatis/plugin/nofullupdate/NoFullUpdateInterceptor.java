@@ -53,7 +53,7 @@ public class NoFullUpdateInterceptor implements Interceptor {
 
                 //Whether to update the full table
                 if (isFullUpdate(update.getWhere())) {
-                    throw new RuntimeException("Updating the entire table data is not allowed in update operations.");
+                    throw new NoFullUpdatePluginException("Updating the entire table data is not allowed in update operations.");
                 }
             }
         }
@@ -72,7 +72,7 @@ public class NoFullUpdateInterceptor implements Interceptor {
         String sql = boundSql.getSql();
 
         if (StringUtils.isBlank(sql)) {
-            throw new RuntimeException("The SQL statement cannot be empty.");
+            throw new NoFullUpdatePluginException("The SQL statement cannot be empty.");
         }
 
         //Whether the SQL includes placeholders or not
